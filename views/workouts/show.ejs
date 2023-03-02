@@ -1,0 +1,123 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Individual Movement</title>
+</head>
+<body>
+    
+       <!-- newRoutine.ejs -->
+<!-- <h1>Create New Routine</h1>
+
+<form action="/routine" method="post">
+  <label for="name">Name:</label>
+  <input type="text" name="name" id="name"><br>
+
+  <label for="workouts">Workouts:</label>
+  <select multiple name="workouts" id="workouts">
+    <% workouts.forEach((workout) => { %>
+      <option value="<%= workout._id %>"><%= workout.name %></option>
+    <% }) %>
+  </select><br>
+
+  <button type="submit">Create Routine</button>
+</form>
+      
+</body>
+</html> --> 
+
+<%- include('../partials/header') %>
+
+<section id="show-page">
+  <div>Title: </div>
+  <div><%= workout.title %></div>
+  <div>Number of Reps: </div>
+  <div><%= workout.numberOfReps %></div>
+  <div>Difficulty: </div>
+  <div><%= workout.difficulty %></div>
+  <div>Now Showing: </div>
+  <div><%= workout.nowShowing ? 'Yes' : 'Nope' %></div>
+  <!-- start cast list -->
+  <div>Exercise:</div>
+  <ul>
+    <%- workout.exercise.map(p =>
+      `<li>${p.name} <small>${p.born.toLocaleDateString()}</small></li>`
+    ).join('') %>
+  </ul>
+  <!-- end cast list -->
+</section>
+<!-- add to cast form below this comment -->
+<form id="add-workout-to-exercise" action="/workout/<%= workout._id %>/exercise" method="POST">
+  <select name="exerciseId">
+    <!-- Emit an option for each performer -->
+    <%- exercise.map(p => 
+      `<option value="${p._id}">${p.name}</option>`
+    ).join('') %>
+  </select>
+  <button type="submit">Add to Exercise</button>
+</form>
+
+<br><br><h2>Reviews</h2>
+<% if (user) { %>
+  <form id="add-review-form" method="POST"
+    action="/workout/<%= workout._id %>/reviews">
+    <label>Review:</label>
+    <textarea name="content"></textarea>
+    <label>Rating:</label>
+    <select name="rating">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5" selected>5</option>
+    </select>
+    <input type="submit" value="Add Review">
+  </form>
+<% } %>
+
+<% if (workout.reviews.length) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Date</th>
+        <th>Review</th>
+        <th>Rating</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% let total = 0 %>
+      <% workout.reviews.forEach(function(r) { %>
+        <% total += r.rating %>
+        <tr>
+          <td class="review-user"><img alt="avatar" src="<%= r.userAvatar %>" referrerpolicy="no-referrer"> <%= r.userName %></td>
+          <td><%= r.createdAt.toLocaleDateString() %></td>
+          <td><%= r.content %></td>
+          <td><%= r.rating %></td>
+          <td>
+            <% if (user?._id.equals(r.user)) { %>
+              <form action="/reviews/<%= r._id %>?_method=DELETE" method="POST">
+                <button type="submit">X</button>
+              </form>
+            <% } %>
+          </td>
+        </tr>
+      <% }); %>
+      <tr>
+        <td colspan="2"></td>
+        <td>
+          <strong>
+            <%= (total / workout.reviews.length).toFixed(1) %>
+          </strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<% } else { %>
+  <h5>No Reviews Yet</h5>
+<% } %>
+  
+<%- include('../partials/footer') %>

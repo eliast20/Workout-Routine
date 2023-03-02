@@ -1,0 +1,18 @@
+<%- include('../partials/header') %>
+
+<div>Before adding, please ensure that the Exercise is not in the following list:</div>
+<section id="badge-container">
+  <% exercise.forEach(function(e) { %>
+    <article class="badge"><%= e.name %></article>
+  <% }) %>
+</section>
+
+<form id="add-exercise-form" action="/exercises" method="POST">
+  <label>Name:</label>
+  <input type="text" name="name">
+  <label>Reps:</label>
+  <input type="number">
+  <input type="submit" value="Add Exercise">
+</form>
+
+<%- include('../partials/footer') %>
