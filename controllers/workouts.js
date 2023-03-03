@@ -1,17 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
-// const Workout = require('../models/workout');
-
-// module.exports = {
-//     index
-// }
-
-// function index(req, res){
-//     res.render('workout/index',{
-//         title:'All WORKOUTS'
-//     });
-// }
-
 const Workout = require('../models/workout');
 const Exercise = require('../models/exercise');
 
@@ -19,7 +5,8 @@ module.exports = {
   index,
   show,
   new: newWorkout,
-  create
+  create,
+  remove,
 };
 
 function index(req, res) {
@@ -61,11 +48,9 @@ function newWorkout(req, res) {
 
 function create(req, res) {
   // Convert nowShowing's checkbox of nothing or "on" to boolean
-  req.body.nowShowing = !!req.body.nowShowing;
+  
   // Delete empty properties on req.body for defaults to happen 
-  for (let key in req.body) {
-    if (req.body[key] === '') delete req.body[key];
-  }
+  
   const workout = new Workout(req.body);
   workout.save()
     .then(() => {
@@ -73,7 +58,21 @@ function create(req, res) {
       res.redirect('/workouts');
     })
     .catch((error) => {
+      console.log(error);
       res.redirect('/workouts/new');
     });
   
+}
+
+function remove(req, res) {
+  const id = req.params.id;
+  Workout.findByIdAndRemove(id, (err, workout) => {
+    if (err) {
+      return res.status(400).json({ error: err });
+    }
+    if (!workout) {
+      return res.status(404).json({ error: 'Workout not found' });
+    }
+    return res.status(200).json({ message: 'Workout deleted successfully' });
+  });
 }

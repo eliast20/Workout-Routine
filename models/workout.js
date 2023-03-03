@@ -24,10 +24,7 @@ const reviewSchema = new Schema({
   });
   
 const workoutSchema = new Schema({
-  exercises: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Exercise'
-  }],
+  exercise: String,
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
@@ -35,6 +32,12 @@ const workoutSchema = new Schema({
   },
   date: Date,
   time: String,
+  title: String,
+  numberOfReps: Number,
+  difficulty: {
+    type: String,
+    enum: ["begineer", "intermediate", "medium", "expeirenced",]
+  }, 
   reviews: [reviewSchema],
   
 },{timestamps:true

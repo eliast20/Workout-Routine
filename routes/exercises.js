@@ -33,3 +33,4 @@ router.post('/workouts/:id/exercises', ensureLoggedIn, exercisesCtrl.addToCast);
 
 
 module.exports = router
+

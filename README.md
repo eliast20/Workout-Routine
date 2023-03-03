@@ -1,1 +1,2 @@
 # Workout-Routine
+This app helps track your routine workouts. You can keep record of what muscle group you are working with and how many reps you need to do. You can post your workout for everyone to see and see other peoples workouts as well. If you like or dislike a workout you can comment and rate the workout.

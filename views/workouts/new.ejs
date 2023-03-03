@@ -1,3 +1,4 @@
+<%- include('../partials/footer') %>
 <h2>Enter a New Workout</h2>
 <form action="/workouts" method="POST">
   <label>Title:
@@ -8,17 +9,15 @@
   </label><br>
   <label> Difficulty of workout
     <select name="difficulty">
-      <option value="G">G</option>
-      <option value="PG">PG</option>
-      <option value="PG-13">PG-13</option>
-      <option value="R">R</option>
+      <option value="begineer">G</option>
+      <option value="intermediate">PG</option>
+      <option value="medium">PG-13</option>
+      <option value="expeirenced">R</option>
     </select>
   </label><br>
   <label>exercise (separate exercises with commas):
     <input type="text" name="exercise">
-  </label><br>
-  <label>Now Showing:
-    <input type="checkbox" name="nowShowing" checked>
-  </label><br>
-  <button type="submit">Add Workout</button>
+  
+  <button type="submit">Add New Workout</button>
 </form>
+<%- include('../partials/footer') %>

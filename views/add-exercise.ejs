@@ -1,0 +1,20 @@
+<!-- Define the content and structure of the add exercises page -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1>Add Exercises</h1>
+    <p>Enter information about a new exercise:</p>
+    <form method="post" action="/exercises">
+      <label for="name">Exercise Name:</label>
+      <input type="text" id="name" name="name" required><br><br>
+      <label for="description">Exercise Description:</label>
+      <textarea id="description" name="description" required></textarea><br><br>
+      <label for="category">Exercise Category:</label>
+      <input type="text" id="category" name="category" required><br><br>
+      <button type="submit">Add Exercise</button>
+    </form>
+  </body>
+</html>
