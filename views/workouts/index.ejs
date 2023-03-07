@@ -18,8 +18,8 @@
         <td><%= workout.numberOfReps %></td>
         <td>
           <a href="/workouts/<%= workout._id %>" class="btn btn-info">Show</a>
-          <a href="/workouts/<%= workout._id %>/edit" class="btn btn-primary">Edit</a>
-          <form action="/workouts/<%= workout._id %>" method="POST">
+          <a href="/workouts/<%= workout._id %>/new" class="btn btn-primary">Edit</a>
+          <form action="/workouts/<%= workout._id %>?_method=DELETE" method="POST">
             <input type="hidden" name="_method" value="DELETE">
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const exerciseSchema = new Schema({
   sets: Number,
   weight: Number,
-  reps: Number,
+  reps: String,
   muscleGroup: String,
   name: String,
 },{

@@ -2,7 +2,7 @@
 
 <div>Before adding, please ensure that the Exercise is not in the following list:</div>
 <section id="badge-container">
-  <% exercise.forEach(function(e) { %>
+  <% exercises.forEach(function(e) { %>
     <article class="badge"><%= e.name %></article>
   <% }) %>
 </section>
@@ -11,7 +11,13 @@
   <label>Name:</label>
   <input type="text" name="name">
   <label>Reps:</label>
-  <input type="number">
+  <input type="number" name="reps">
+  <label>Weight:</label>
+  <input type="number" name="weight">
+  <label>Sets:</label>
+  <input type="number" name="sets">
+  <label>Muscle Group:</label>
+  <input type="text" name="muscleGroup">
   <input type="submit" value="Add Exercise">
 </form>
 

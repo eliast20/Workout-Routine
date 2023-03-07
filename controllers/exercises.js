@@ -18,9 +18,8 @@ function addToCast(req, res) {
 }
 
 function create(req, res) {
-   req.body.born += 'T00:00';
-  Exercise.create(req.body, function (err, performer) {
-    res.redirect('/exercise/new');
+  Exercise.create(req.body).then( function (exercise) {
+    res.redirect('exercises/new');
   });
 }
 
@@ -28,7 +27,7 @@ function newExercise(req, res) {
   Exercise.find({})
     //Sort performers by their name
     .sort('name')
-    .exec(function (err, exercises) {
+    .then(function (exercises) {
       res.render('exercises/new', {
         title: 'Add Exercise',
         exercises

@@ -25,9 +25,9 @@ const ensureLoggedIn = require('../config/ensureLoggedIn');
 router.get('/', function (req, res, next) {
   res.send('I am in the exercise router')
 })
-router.get('/exercises/new', ensureLoggedIn, exercisesCtrl.new);
+router.get('/new', ensureLoggedIn, exercisesCtrl.new);
 // POST /performers
-router.post('/exercises', ensureLoggedIn, exercisesCtrl.create);
+router.post('/', ensureLoggedIn, exercisesCtrl.create);
 // POST /movies/:id/performers (assoc movie & performer)
 router.post('/workouts/:id/exercises', ensureLoggedIn, exercisesCtrl.addToCast);
 

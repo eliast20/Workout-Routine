@@ -64,15 +64,29 @@ function create(req, res) {
   
 }
 
-function remove(req, res) {
-  const id = req.params.id;
-  Workout.findByIdAndRemove(id, (err, workout) => {
-    if (err) {
-      return res.status(400).json({ error: err });
+// function remove(req, res) {
+//   console.log('in the remove controller');
+//   const id = req.params.id;
+//   Workout.findByIdAndDelete(id, (err, workout) => {
+//     if (err) {
+//       return res.status(400).json({ error: err });
+//     }
+//     if (!workout) {
+//       return res.status(404).json({ error: 'Workout not found' });
+//     }
+//     return res.status(200).json({ message: 'Workout deleted successfully' });
+//   });
+// }
+async function remove (req, res) {
+  console.log(req.params);
+  try {
+    const { id } = req.params
+    const deleted = await Workout.findByIdAndDelete(id)
+    if (deleted) {
+      return res.status(200).redirect('/workouts')
     }
-    if (!workout) {
-      return res.status(404).json({ error: 'Workout not found' });
-    }
-    return res.status(200).json({ message: 'Workout deleted successfully' });
-  });
+    throw new Error('Collection not found')
+  } catch (error) {
+    return res.status(500).send(error.message)
+  }
 }
